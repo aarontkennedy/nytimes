@@ -1,5 +1,5 @@
 module.exports = function (app) {
-
+/*
     // Require all models
     const db = require("../../../models");
     const tableByAbbr = require("datasets-us-states-abbr-names");
@@ -23,7 +23,6 @@ module.exports = function (app) {
             return res.json(new Error('Missing query parameter like state or id.'));
     });
 
-    /* https://stackoverflow.com/questions/36190373/mongoose-find-geo-points-by-radius */
     function searchByLocation(latitude, longitude, radiuskm, res) {
         // we need to convert the distance to radians
         // the radius of Earth is approximately 6371 kilometers
@@ -89,5 +88,5 @@ module.exports = function (app) {
                 // If an error occurs, send the error back to the client
                 res.json(err);
             });
-    }
+    }*/
 };

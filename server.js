@@ -22,9 +22,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // express will handle the static files
-app.use(express.static('app/public'));
+app.use(express.static('./client/build/'));
 
-require('./app/controller/routing/apiRoutes.js')(app);
+require('./routing/apiRoutes.js')(app);
+require('./routing/oauthRoutes.js')(app, "/search/");
+
+// this picks up any other routes and sends them to the react app to handle
+app.get('*', function(req, res) {
+  console.log("poop");
+  res.sendfile('./client/build/index.html');
+});
 
 app.listen(PORT, function () {
   console.log("App listening on PORT " + PORT);
