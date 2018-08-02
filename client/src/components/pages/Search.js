@@ -1,27 +1,43 @@
 import React, { Component } from "react";
 import mongo from "../../utils/mongo";
+import nyt from "../../utils/nyt";
 import SearchComponent from "../SearchComponent";
 import ArticleResults from "../ArticleResults";
 import ArticlesSaved from "../ArticlesSaved";
+import ArticleListItem from "../ArticleListItem";
 import './Search.css';
+import moment from "moment";
 
 class Search extends Component {
     state = {
-        user: null,
+        user: 1,//null,
         query: "",
         start: null,
-        end: null
+        end: null,
+        articles: []
     };
 
     componentWillMount() {
-        this.setState({ user: mongo.getUser(this.props.userGoogleID) });
+        mongo.getUser(this.props.userGoogleID).then((result) => {
+            console.log(result);
+            this.setState({
+                user: result
+            });
+        });
+
+        nyt.getArticles().then((result) => {
+            console.log(result.data.response.docs);
+            this.setState({
+                articles: result.data.response.docs
+            });
+        });
     }
 
     // need to break this out seperately due to the react date picker
     handleStartDateChange = (date) => {
         console.log(date);
         this.setState({
-          start: date
+            start: date
         });
     };
 
@@ -29,7 +45,7 @@ class Search extends Component {
     handleEndDateChange = (date) => {
         console.log(date);
         this.setState({
-          end: date
+            end: date
         });
     };
 
@@ -46,9 +62,16 @@ class Search extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        alert("search");
-        /*alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
-        this.setState({ username: "", password: "" });*/
+        const start = (this.state.start ? this.state.start.format("YYYYMMDD") : null);
+        const end = (this.state.end ? this.state.end.format("YYYYMMDD") : null);
+
+        nyt.getArticles(this.state.query, start, end)
+        .then((result) => {
+            console.log(result.data.response.docs);
+            this.setState({
+                articles: result.data.response.docs
+            });
+        });
     }
 
     handleSave = event => {
@@ -68,7 +91,7 @@ class Search extends Component {
     render() {
         if (this.state.user) {
             return (
-                <div>
+                <div className="container">
                     <SearchComponent onChange={this.handleChange}
                         onStartChange={this.handleStartDateChange}
                         onEndChange={this.handleEndDateChange}
@@ -77,10 +100,30 @@ class Search extends Component {
                         start={this.state.start}
                         end={this.state.end} />
                     <ArticleResults onSave={this.handleSave}>
-
+                        {this.state.articles.map((a) => {
+                            return (<ArticleListItem
+                                key={a.web_url}
+                                title={a.headline.main}
+                                datePublished={moment(a.pub_date).format("YYYY/MM/DD")}
+                                snippet={a.snippet}
+                                url={a.web_url}
+                                onClick={this.handleSave}
+                                buttonText="Save"
+                            />);
+                        })}
                     </ArticleResults>
                     <ArticlesSaved onDelete={this.handleDelete}>
-
+                        {this.state.user.articles.map((a) => {
+                            return (<ArticleListItem
+                                key={a.url}
+                                title={a.title}
+                                datePublished={a.datePublished}
+                                snippet={a.snippet}
+                                url={a.url}
+                                onClick={this.handleDelete}
+                                buttonText="Delete"
+                            />);
+                        })}
                     </ArticlesSaved>
                 </div>
             );

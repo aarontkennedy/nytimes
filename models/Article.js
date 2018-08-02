@@ -12,6 +12,7 @@ var ArticleSchema = new Schema({
     unique: true
   },
   title: { type: String, required: true },
+  snippet: { type: String, required: true },
   datePublished: { type: Date, default: Date.now }
 });
 

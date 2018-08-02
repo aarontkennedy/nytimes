@@ -58,7 +58,6 @@ class App extends Component {
   }
 
   render() {
-    console.log("rendered: ");
     return (<Router>
       <div className="App">
         <header className="container-fluid">
@@ -71,6 +70,7 @@ class App extends Component {
 
           {this.state.signedIn ?
             <div>
+              { console.log("signed in- should render search")}
               <Route path="*" render={(props) => <Search {...props} userGoogleID={this.state.googleID} />} />
             </div>
             :
