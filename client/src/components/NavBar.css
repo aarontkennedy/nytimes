@@ -1,9 +1,8 @@
 .NavBar-MyBrand {
     color: black;
-    cursor: default;
-    font-weight: bolder;
+    font-weight: bold;
 }
 
-#logo {
-    width: 1.5em;
+nav .col-6{
+    border: thin solid black;
 }

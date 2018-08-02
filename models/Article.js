@@ -4,14 +4,15 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
-  title: { type: String, required: true }, 
-  datePublished: { type: Date, default: Date.now },
   url: {
     type: String,
     /* http://urlregex.com */
     match: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/,
-    required: true
-  }
+    required: true,
+    unique: true
+  },
+  title: { type: String, required: true },
+  datePublished: { type: Date, default: Date.now }
 });
 
 // This creates our model from the above schema, using mongoose's model method

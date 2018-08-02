@@ -1,0 +1,9 @@
+.SearchComponent-Date {
+    display: inline-block;
+    border-radius: .25em;
+    max-width: 100%;
+}
+
+label.SearchComponent {
+    font-size: 150%;
+}

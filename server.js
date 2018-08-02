@@ -25,11 +25,10 @@ app.use(bodyParser.json());
 app.use(express.static('./client/build/'));
 
 require('./routing/apiRoutes.js')(app);
-require('./routing/oauthRoutes.js')(app, "/search/");
+//require('./routing/oauthRoutes.js')(app, "/search/");
 
 // this picks up any other routes and sends them to the react app to handle
 app.get('*', function(req, res) {
-  console.log("poop");
   res.sendfile('./client/build/index.html');
 });
 

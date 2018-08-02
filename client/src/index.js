@@ -13,4 +13,4 @@ import registerServiceWorker from './registerServiceWorker';
 import CloseNavBarFix from "./CloseNavBarFix";
 
 ReactDOM.render(<App />, document.getElementById('root'));
-//registerServiceWorker(); // these guys are no fun, stealing my server calls
+registerServiceWorker(); // these guys are no fun, stealing my server calls

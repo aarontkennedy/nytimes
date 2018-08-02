@@ -1,28 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import './NavBar.css';
+import { GoogleLogout } from 'react-google-login';
 
 const NavBar = (props) => (
-    <nav className="navbar navbar-expand-md navbar-light">
-        <h2 className="navbar-brand NavBar-MyBrand" >
+    <nav className="navbar row">
+        <h4 className="col-10 col-md-7 NavBar-MyBrand text-left" >
             NYT Article Search & Save
-        </h2>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
-                    {props.signedIn ?
-                        <Link to="/" className="btn btn-primary btn-sm" >
-                            "Sign Out"</Link> :
-                        <a href="/signin" className="btn btn-primary btn-sm" >
-                            Sign In
-                    </a>
-                    }
-                </li>
-            </ul>
+        </h4>
+        <div className="col-2 col-md-5 text-right" >
+            <span className="d-none d-md-inline">{props.name ? `Welcome, ${props.name}. ` : ""}</span>
+            {props.signedIn ?
+                <GoogleLogout
+                    className="btn btn-primary btn-sm"
+                    buttonText="Sign Out"
+                    onLogoutSuccess={props.onSignOut}
+                >
+                </GoogleLogout>
+                : ""
+            }
         </div>
     </nav>
 );
