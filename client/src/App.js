@@ -20,8 +20,8 @@ class App extends Component {
 
   successfulSignIn = (response) => {
     console.log("successfulSignIn");
-    console.log(response);
-    console.log(response.profileObj);
+    //console.log(response);
+    //console.log(response.profileObj);
     this.setState({
       signedIn: true,
       googleID: response.profileObj.googleId,
@@ -70,7 +70,6 @@ class App extends Component {
 
           {this.state.signedIn ?
             <div>
-              { console.log("signed in- should render search")}
               <Route path="*" render={(props) => <Search {...props} userGoogleID={this.state.googleID} />} />
             </div>
             :

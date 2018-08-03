@@ -18,10 +18,11 @@ class Search extends Component {
     };
 
     componentWillMount() {
+        console.log("Search componentWillMount()");
         mongo.getUser(this.props.userGoogleID).then((result) => {
-            console.log(result);
+            console.log(result.data);
             this.setState({
-                user: result
+                user: result.data
             });
         });
 
@@ -31,6 +32,13 @@ class Search extends Component {
                 articles: result.data.response.docs
             });
         });
+    }
+
+    getUsersSavedArticles() {
+        if (!this.state.user || !this.state.user.articles) {
+            return [];
+        } 
+        return this.state.user.articles;
     }
 
     // need to break this out seperately due to the react date picker
@@ -76,16 +84,29 @@ class Search extends Component {
 
     handleSave = event => {
         event.preventDefault();
-        alert("save");
-        /*alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
-        this.setState({ username: "", password: "" });*/
+        mongo.saveArticle({googleID: this.props.userGoogleID,
+            url: event.target.getAttribute("data-url"),
+            title: event.target.getAttribute("data-title"),
+            snippet: event.target.getAttribute("data-snippet"),
+            datePublished: event.target.getAttribute("data-datepublished")
+        }).then((result) => {
+            console.log(result.data);
+            this.setState({
+                user: result.data
+            });
+        });
     }
 
     handleDelete = event => {
         event.preventDefault();
-        alert("delete");
-        /*alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
-        this.setState({ username: "", password: "" });*/
+        mongo.deleteArticle({googleID: this.props.userGoogleID,
+            articleID: event.target.getAttribute("data-id")
+        }).then((result) => {
+            console.log(result.data);
+            this.setState({
+                user: result.data
+            });
+        });
     }
 
     render() {
@@ -112,10 +133,11 @@ class Search extends Component {
                             />);
                         })}
                     </ArticleResults>
-                    <ArticlesSaved onDelete={this.handleDelete}>
-                        {this.state.user.articles.map((a) => {
+                    {<ArticlesSaved onDelete={this.handleDelete}>
+                        {this.getUsersSavedArticles().map((a) => {
                             return (<ArticleListItem
                                 key={a.url}
+                                _id={a._id} 
                                 title={a.title}
                                 datePublished={a.datePublished}
                                 snippet={a.snippet}
@@ -124,7 +146,7 @@ class Search extends Component {
                                 buttonText="Delete"
                             />);
                         })}
-                    </ArticlesSaved>
+                    </ArticlesSaved>}
                 </div>
             );
         }

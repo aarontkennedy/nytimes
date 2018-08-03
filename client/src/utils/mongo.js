@@ -6,14 +6,14 @@ export default {
     },
     getUser: function (userGoogleID) {
       return axios.get(`/api/user/${userGoogleID}`);
+    },
+    // Saves an article to the database
+    saveArticle: function(articleData) {
+      return axios.post("/api/user/article", articleData);
+    },
+    // Deletes an article to the database
+    deleteArticle: function(articleData) {
+      console.log(articleData);
+      return axios.put("/api/user/article", articleData);
     }
-  /*// Gets all books
-  // Deletes the book with the given id
-  deleteBook: function(id) {
-    return axios.delete("/api/books/" + id);
-  },
-  // Saves a book to the database
-  saveBook: function(bookData) {
-    return axios.post("/api/books", bookData);
-  }*/
 };

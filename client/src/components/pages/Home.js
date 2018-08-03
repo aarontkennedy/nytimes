@@ -20,7 +20,7 @@ class Home extends Component {
                     Sign in with a Google account and start searching articles from the New York Times.  Save and share the ones you like the best.</p>
                 <div className="text-center mt-4 mb-4">
                     <GoogleLogin
-                        clientId="931931746825-n28q9if9dhmudmn9ee1l0f8720tk4qa8.apps.googleusercontent.com"
+                        clientId="667983979534-5utq0hldi40eg6a06rbj57sguspooi7h.apps.googleusercontent.com"
                         buttonText="Sign in with Google"
                         className="btn btn-primary btn-lg"
                         onSuccess={this.props.successfulSignin}
