@@ -5,10 +5,10 @@ import { GoogleLogout } from 'react-google-login';
 
 const NavBar = (props) => (
     <nav className="navbar row">
-        <h4 className="col-10 col-md-7 NavBar-MyBrand text-left" >
+        <h4 className="col-9 col-md-7 NavBar-MyBrand text-left" >
             NYT Article Search & Save
         </h4>
-        <div className="col-2 col-md-5 text-right" >
+        <div className="col-3 col-md-5 text-right" >
             <span className="d-none d-md-inline">{props.name ? `Welcome, ${props.name}. ` : ""}</span>
             {props.signedIn ?
                 <GoogleLogout
