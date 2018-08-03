@@ -9,7 +9,7 @@ const ArticleListItem = (props) => (
                     {props.title}
                 </a>
             </h5>
-            <div className="col-4 col-md-2 text-right">
+            <div className="col-4 col-md-2 text-right p-0">
                 <button 
                     className="btn btn-primary btn-sm"
                     data-id={props._id}
