@@ -8,7 +8,7 @@ const NavBar = (props) => (
         <h4 className="col-9 col-md-7 NavBar-MyBrand text-left" >
             NYT Article Search & Save
         </h4>
-        <div className="col-3 col-md-5 text-right" >
+        <div className="col-3 col-md-5 text-right p-0" >
             <span className="d-none d-md-inline">{props.name ? `Welcome, ${props.name}. ` : ""}</span>
             {props.signedIn ?
                 <GoogleLogout

@@ -17,7 +17,7 @@ const SearchComponent = (props) => (
             <div className="row">
                 <div className="d-none d-md-block col-2 text-right">
                     <label className="SearchComponent" htmlFor="query">Keywords</label></div>
-                <div className="col-8 col-md-8">
+                <div className="col-8 col-md-8 p-0">
                     <input
                         className="form-control form-control-lg "
                         id="query"
@@ -27,12 +27,12 @@ const SearchComponent = (props) => (
                         value={props.query}
                         onChange={props.onChange} />
                 </div>
-                <div className="col-4 col-md-2">
+                <div className="col-4 col-md-2 p-0">
                     <button className="btn btn-primary btn-lg" type="submit">Search</button>
                 </div>
             </div>
             <div className="row mt-2">
-                <div className="col-12 col-sm-6 text-right">
+                <div className="col-12 col-sm-6 text-center text-sm-right">
                     <DatePicker
                         className="SearchComponent-Date"
                         placeholderText={"Start " + dateFormat}
@@ -46,7 +46,7 @@ const SearchComponent = (props) => (
                         isClearable={true}
                     />
                 </div>
-                <div className="col-12 col-sm-6 text-left">
+                <div className="col-12 col-sm-6 text-center text-sm-left">
                     <DatePicker
                         className="SearchComponent-Date"
                         dateFormat={dateFormat}
